@@ -21,6 +21,36 @@ public class DeviceService {
         return mapToDto(device);
     }
 
+    public DeviceDto createDevice(DeviceDto deviceDto) {
+        Device device = new Device();
+        device.setName(deviceDto.getName());
+        device.setType(deviceDto.getType());
+        device.setLocation(deviceDto.getLocation());
+        device.setUserId(deviceDto.getUserId());
+
+        final Device savedDevice = deviceRepository.save(device);
+        return mapToDto(savedDevice);
+    }
+
+    public DeviceDto updateDevice(Long id, DeviceDto deviceDto) {
+        Device existing = deviceRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Device not found with the id :" + id));
+        existing.setName(deviceDto.getName());
+        existing.setType(deviceDto.getType());
+        existing.setLocation(deviceDto.getLocation());
+        existing.setUserId(deviceDto.getUserId());
+
+        final Device updatedDevice = deviceRepository.save(existing);
+        return mapToDto(updatedDevice);
+    }
+
+    public void deleteDevice(Long id) {
+        if (!deviceRepository.existsById(id)) {
+            throw new IllegalArgumentException("Device not found with the id :" + id);
+        }
+        deviceRepository.deleteById(id);
+    }
+
     private DeviceDto mapToDto(Device device) {
         DeviceDto deviceDto = new DeviceDto();
         deviceDto.setId(device.getId());

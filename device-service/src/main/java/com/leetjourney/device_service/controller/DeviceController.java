@@ -24,7 +24,22 @@ public class DeviceController {
 
 
     @PostMapping("/create")
-    public ResponseEntity<DeviceDto> createDevice() {
-        return null;
+    public ResponseEntity<DeviceDto> createDevice(@RequestBody DeviceDto deviceDto) {
+        DeviceDto createdDevice = deviceService.createDevice(deviceDto);
+        return ResponseEntity.ok(createdDevice);
+    }
+
+
+    @PutMapping("/{id}")
+    public ResponseEntity<DeviceDto> updateDevice(@PathVariable Long id, @RequestBody DeviceDto deviceDto) {
+        DeviceDto updateDevice = deviceService.updateDevice(id, deviceDto);
+        return ResponseEntity.ok(updateDevice);
+    }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteDevice(@PathVariable Long id) {
+        deviceService.deleteDevice(id);
+        return ResponseEntity.noContent().build();
     }
 }
