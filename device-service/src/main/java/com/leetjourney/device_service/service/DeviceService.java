@@ -2,6 +2,7 @@ package com.leetjourney.device_service.service;
 
 import com.leetjourney.device_service.dto.DeviceDto;
 import com.leetjourney.device_service.entity.Device;
+import com.leetjourney.device_service.exception.DeviceNotFoundException;
 import com.leetjourney.device_service.repository.DeviceRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ public class DeviceService {
 
     public DeviceDto getDeviceById(Long id) {
         Device device = deviceRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Device not found with the id :" + id));
+                .orElseThrow(() -> new DeviceNotFoundException("Device not found with the id :" + id));
         return mapToDto(device);
     }
 
@@ -34,7 +35,7 @@ public class DeviceService {
 
     public DeviceDto updateDevice(Long id, DeviceDto deviceDto) {
         Device existing = deviceRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Device not found with the id :" + id));
+                .orElseThrow(() -> new DeviceNotFoundException("Device not found with the id :" + id));
         existing.setName(deviceDto.getName());
         existing.setType(deviceDto.getType());
         existing.setLocation(deviceDto.getLocation());
@@ -46,7 +47,7 @@ public class DeviceService {
 
     public void deleteDevice(Long id) {
         if (!deviceRepository.existsById(id)) {
-            throw new IllegalArgumentException("Device not found with the id :" + id);
+            throw new DeviceNotFoundException("Device not found with the id :" + id);
         }
         deviceRepository.deleteById(id);
     }
