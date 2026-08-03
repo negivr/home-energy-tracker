@@ -22,7 +22,7 @@ public class ContinuousDataSimulator implements CommandLineRunner {
     private final RestTemplate restTemplate = new RestTemplate();
     private final Random random = new Random();
 
-    @Value("${simulation.request-per-interval}")
+    @Value("${simulation.requests-per-interval}")
     private int requestPerInterval;
 
     @Value("${simulation.endpoint}")
@@ -34,7 +34,7 @@ public class ContinuousDataSimulator implements CommandLineRunner {
         log.info("ContinuousDataSimulator started...");
     }
 
-    @Scheduled(fixedRateString = "${simulation.interval-ms}")
+//    @Scheduled(fixedRateString = "${simulation.interval-ms}")
     public void sendMockData() {
         for (int i =0; i < requestPerInterval; i++) {
             EnergyUsageDto dto  = EnergyUsageDto.builder()
