@@ -71,6 +71,14 @@
 			<!--			<version>2.22.1</version>-->
 			<!--			<scope>compile</scope>-->
 		</dependency>
+
+		<!-- Source: https://mvnrepository.com/artifact/com.influxdb/influxdb-client-java -->
+		<dependency>
+			<groupId>com.influxdb</groupId>
+			<artifactId>influxdb-client-java</artifactId>
+			<version>8.0.0</version>
+<!--			<scope>compile</scope>-->
+		</dependency>
 	</dependencies>
 
 	<build>
